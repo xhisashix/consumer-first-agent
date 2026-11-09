@@ -1,7 +1,7 @@
 {
-  "name": "agent-marketing-waza",
-  "displayName": "Marketing Waza Multi-Agent Suite",
-  "description": "P&G型ブランドマネジメントとMarketing Wazaの思考体系に基づく全10担当のサブエージェント＆スキル群（エンジニアリング要件定義モード／マーケティング戦略モード両対応）。",
+  "name": "consumer-first",
+  "displayName": "Consumer-First Strategy & Engineering Suite",
+  "description": "顧客起点（Consumer-First）のブランドマネジメントと思考体系に基づく全10担当のサブエージェント＆スキル群（エンジニアリング要件定義モード／マーケティング戦略モード両対応）。",
   "version": "1.0.0",
   "logo": "assets/logo.svg",
   "suggestedPrompts": [

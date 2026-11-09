@@ -1,0 +1,1 @@
+../../agents/consumer-first-memo-writer-pro.md
