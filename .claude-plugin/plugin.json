@@ -1,0 +1,7 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "agent-marketing-waza",
+  "version": "1.0.0",
+  "description": "P&G型ブランドマネジメントとMarketing Wazaの思考体系に基づく全10担当のサブエージェント＆スキル群（エンジニアリング要件定義モード／マーケティング戦略モード両対応）。",
+  "license": "MIT"
+}

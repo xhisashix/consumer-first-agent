@@ -2,17 +2,3 @@
 .DS_Store
 *.swp
 *~
-
-# Machine-local overrides (company PC / private PC specific rules, skills, agents)
-local/*
-!local/.gitkeep
-!local/README.md
-!local/agents/
-local/agents/*
-!local/agents/.gitkeep
-!local/skills/
-local/skills/*
-!local/skills/.gitkeep
-!local/rules/
-local/rules/*
-!local/rules/.gitkeep

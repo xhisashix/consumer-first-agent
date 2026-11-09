@@ -1,6 +1,12 @@
 {
   "name": "agent-marketing-waza",
-  "displayName": "Agent Marketing Waza",
-  "description": "Portable multi-agent orchestration, subagents, and skills hub for Antigravity, GitHub Copilot, and Claude Code.",
-  "version": "0.1.0"
+  "displayName": "Marketing Waza Multi-Agent Suite",
+  "description": "P&G型ブランドマネジメントとMarketing Wazaの思考体系に基づく全10担当のサブエージェント＆スキル群（エンジニアリング要件定義モード／マーケティング戦略モード両対応）。",
+  "version": "1.0.0",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "新機能の企画からROI試算・Approval型One Page Memo作成まで壁打ちして",
+    "開発したツールを現場・他部署に浸透させるTech PRとインフルエンサーマップを作って",
+    "メンバーのスキル分解とOJT文書ブリーフィング・年間W&DPを作成して"
+  ]
 }

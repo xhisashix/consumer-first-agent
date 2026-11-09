@@ -1,15 +1,56 @@
-# agent-marketing-waza
+# Marketing Waza Multi-Agent Suite (`agent-marketing-waza`)
 
-**Antigravity / GitHub Copilot / Claude Code** の3環境で「Marketing Waza」の全10担当サブエージェント・スキル・オーケストレーション規約を一元管理し、**プライベートPC・会社PC・複数プロジェクト間でポータブルに使い回すための「AIエージェント版 dotfiles」リポジトリ**です。
+**Antigravity / Claude Code / GitHub Copilot** の3環境すべてに対応した、**マルチプラットフォームAIプラグイン**です。
+P&G型のブランドマネジメント体制および「Marketing Waza」の思考体系に基づく全10担当のサブエージェントとスキルをパッケージ化しています。
 
-すべてのサブエージェント・スキルは **「モードA：エンジニアリング・開発マネジメントモード」** と **「モードB：マーケティング戦略・事業推進モード」** の2モードに対応しています。
+すべてのサブエージェント・スキルは **「モードA：エンジニアリング・開発マネジメントモード」** と **「モードB：マーケティング戦略・事業推進モード」** の2モードに対応しており、普段のコーディング・バグ修正タスクには干渉しないガードレールを備えています。
 
 ---
 
-## 搭載サブエージェント＆スキル一覧（全10担当）
+## 1. プラグインとしてのインストール方法（シェルスクリプト不要）
+
+このリポジトリは各ツールの公式プラグイン仕様に準拠しているため、**シェルスクリプトを実行することなく**、各ツールの標準機能だけで導入・更新できます。
+
+### ① Antigravity での導入
+以下のコマンドでプラグインとして直接インストールできます（または `~/.gemini/config/plugins/agent-marketing-waza` に `git clone` するだけでも自動認識されます）。
+
+```bash
+agy plugin install <このGitリポジトリのURL または ローカルパス>
+```
+- 導入後は Antigravity の **Customizations（Plugins）画面** から1クリックで ON / OFF を切り替えられます。
+
+### ② Claude Code での導入
+`.claude-plugin/plugin.json` を同梱しているため、Claude Code の標準プラグインコマンドで直接インストールできます。
+
+```bash
+# Claude Code のチャットセッション内で実行
+/plugin
+
+# または CLI から検証・導入
+claude plugin validate .
+```
+
+### ③ GitHub Copilot (VS Code) での導入
+リポジトリ内の `.github/agents/*.agent.md` に相対リンクを同梱しているため、VS Code の個人設定（`settings.json`）に以下の2行を追加するだけで、全プロジェクト横断で利用できます（VS Code の Settings Sync を使えばプライベートPCと会社PCで設定も自動同期されます）。
+
+```json
+{
+  "chat.agentFilesLocations": [
+    "/path/to/agent-marketing-waza/.github/agents"
+  ],
+  "chat.agentSkillsLocations": [
+    "/path/to/agent-marketing-waza/skills"
+  ]
+}
+```
+
+---
+
+## 2. 搭載サブエージェント＆スキル一覧（全10担当＋統括オーケストレーター）
 
 | No | 識別名 (`name`) | 担当ロール | 主な成果物 |
 | :-: | :--- | :--- | :--- |
+| **統括** | `marketing-waza-orchestrator` | マルチエージェント連携パイプライン統括スキル | 複数担当の一気通貫連携 |
 | **①** | `marketing-waza-brand-manager` | ブランドマネージャー（全体統括・WHO/WHAT/HOW戦略・エクイティ担当） | WHO / WHAT / HOW 戦略定義シート |
 | **②** | `marketing-waza-cmk-researcher` | CMK / 顧客理解・リサーチ担当（3つの顔・行動×知覚・顧客我） | CMK リサーチ設計＆顧客インサイト仮説シート |
 | **③** | `marketing-waza-concept-innovator` | コンセプト開発・イノベーション担当（Connecting Dots・50字アイデア・RTB） | イノベーション＆コンセプト開発シート |
@@ -23,60 +64,26 @@
 
 ---
 
-## ディレクトリ構成
+## 3. ディレクトリ構成（ユニバーサル・プラグイン構造）
 
 ```text
 agent-marketing-waza/
-├── plugin.json                # Antigravity プラグインマニフェスト
-├── AGENTS.md                  # rules/AGENTS.md へのシンボリックリンク
+├── plugin.json                # Antigravity 用プラグインマニフェスト
+├── .claude-plugin/
+│   └── plugin.json            # Claude Code 用プラグインマニフェスト
+├── .github/
+│   └── agents/                # GitHub Copilot 用（../../agents/*.md への相対リンク）
+│       └── marketing-waza-*.agent.md
+├── assets/
+│   └── logo.svg               # プラグインロゴアイコン
+├── AGENTS.md                  # -> rules/AGENTS.md へのシンボリックリンク
 ├── rules/
-│   └── AGENTS.md              # [正本] 親エージェントのオーケストレーション・ルーティング規約
+│   └── AGENTS.md              # [正本] オーケストレーション＆通常開発への非干渉ガードレール規約
 ├── agents/
-│   ├── _template.md           # サブエージェント追加用テンプレート
 │   └── marketing-waza-*.md    # [正本] 全10担当のサブエージェント定義
 ├── skills/
-│   ├── _template/             # スキル追加用テンプレート
-│   └── marketing-waza-*/      # [正本] 全10担当のスキル定義（SKILL.md）
-├── local/                     # [Git除外] 会社PC専用・個人PC専用の非公開ルール/スキル/エージェント置き場
-│   ├── README.md
-│   ├── rules/
-│   ├── agents/
-│   └── skills/
-└── scripts/
-    └── setup-links.sh         # 3ツールへのシンボリックリンク一括展開・管理スクリプト
-```
-
----
-
-## クイックスタート（プライベートPC / 会社PC での初期セットアップ）
-
-新しいPCにリポジトリをクローンしたら、以下の1コマンドを実行するだけでPC全体（グローバル環境）にリンクが張られます。
-
-```bash
-./scripts/setup-links.sh --global
-```
-
-### `--global` でリンクされる場所
-| ツール | リンク先パス |
-| :--- | :--- |
-| **Antigravity** | `~/.gemini/config/plugins/agent-marketing-waza` |
-| **Claude Code** | `~/.claude/rules/`, `~/.claude/agents/*.md`, `~/.claude/skills/*` |
-| **GitHub Copilot** | `~/.copilot/agents/*.agent.md` *(自動で拡張子変換)*, `~/.copilot/skills/*` |
-
----
-
-## 便利なコマンド一覧
-
-```bash
-# 現在のエージェント・スキル一覧とリンク状態を確認
-./scripts/setup-links.sh --status
-
-# このリポジトリ自身でローカル動作テスト用に展開したい場合 (.agents, .claude, .github)
-./scripts/setup-links.sh --self
-
-# 特定の別プロジェクト（リポジトリ）内にだけローカル展開したい場合
-./scripts/setup-links.sh --project /path/to/your-project
-
-# グローバルリンクを安全に解除したい場合
-./scripts/setup-links.sh --unlink-global
+│   └── marketing-waza-*/      # [正本] 全10担当＋オーケストレーターのスキル定義（SKILL.md）
+└── templates/                 # 新規エージェント・スキル追加時の雛形
+    ├── agent-template.md
+    └── skill-template/SKILL.md
 ```
