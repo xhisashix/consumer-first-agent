@@ -68,21 +68,25 @@
 複合的な相談を受けた場合、親エージェントは以下のパイプラインで各サブエージェントを段階的に呼び出し、前のエージェントの出力を次のエージェントへ引き継いで成果物を完成させます。
 
 ### パターン1：新規企画・新機能開発 〜 稟議承認パイプライン
+
 1. **`consumer-first-cmk-researcher` (②)**：顧客の3つの顔とBig Problem・インサイト仮説を特定する。
 2. **`consumer-first-concept-innovator` (③)** または **`consumer-first-brand-manager` (①)**：Connecting Dotsでコンセプト（WHO/WHAT/RTB）と戦略定義シートを策定する。
 3. **`consumer-first-financial-strategist` (⑦)**：限界利益率・投資対効果（ROI）・3年PLインパクトを試算する。
 4. **`consumer-first-memo-writer-pro` (⑧)**：上記①〜③の成果物を統合し、鉄の掟を満たす「Approval型 One Page Memo（または承認用チケット）」に仕上げる。
 
 ### パターン2：プロダクト・施策の現場浸透 ＆ 営業・PR展開パイプライン
+
 1. **`consumer-first-brand-manager` (①)**：伝えるべきコアベネフィット（WHAT）とターゲット（WHO）を明確化する。
 2. **`consumer-first-creative-director` (④)**：便益を直感的に伝えるクリエイティブブリーフと実証デモ（Vision of Execution）を設計する。
 3. **`consumer-first-digital-pr-strategist` (⑤)**：導入を阻む固定観念（バリア）を特定し、社内外のインフルエンサーマッピングと口コミ（UGC）誘発策を設計する。
 4. **`consumer-first-scientific-sales` (⑥)**：決裁者・バイヤーの4大課題に接続した「説得的販売話法5ステップ」の提案シナリオを作成する。
 
 ### パターン3：調査・事象分析 〜 報告・合意形成パイプライン
+
 1. **`consumer-first-cmk-researcher` (②)**：定性×定量・行動×知覚の調査データを構造化し、インサイトを抽出する。
 2. **`consumer-first-memo-writer-pro` (⑧)**：調査結果またはプロジェクト進捗を「Reportタイプ1（率先報告・ケース要約）」または「Reportタイプ2（リサーチサマリー・進捗アップデート）」の1ページメモに落とし込む。
 
 ### パターン4：組織変革・ワンチーム化 ＆ 人材育成パイプライン
+
 1. **`consumer-first-leadership-oneteam` (⑨)**：26の行動原則でチームの課題を診断し、権限移譲と心理的安全性のアクションプランを作る。
 2. **`consumer-first-talent-developer` (⑩)**：業務をスキル分解し、メンバー別のW&DP（Work & Development Plan）とOJT文書ブリーフィングを作成する。

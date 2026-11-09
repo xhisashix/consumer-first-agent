@@ -12,6 +12,7 @@
 このリポジトリは各ツールの公式プラグイン仕様に準拠しているため、**シェルスクリプトを実行することなく**、各ツールの標準機能だけで導入・更新できます。
 
 ### ① Antigravity での導入
+
 以下のコマンドでプラグインとして直接インストールできます（または `~/.gemini/config/plugins/consumer-first` に `git clone` するだけでも自動認識されます）。
 
 ```bash
@@ -20,6 +21,7 @@ agy plugin install <このGitリポジトリのURL または ローカルパス>
 - 導入後は Antigravity の **Customizations（Plugins）画面** から1クリックで ON / OFF を切り替えられます。
 
 ### ② Claude Code での導入
+
 `.claude-plugin/plugin.json` を同梱しているため、Claude Code の標準プラグインコマンドで直接インストールできます。
 
 ```bash
@@ -31,6 +33,7 @@ claude plugin validate .
 ```
 
 ### ③ GitHub Copilot (VS Code) での導入
+
 リポジトリ内の `.github/agents/*.agent.md` に相対リンクを同梱しているため、VS Code の個人設定（`settings.json`）に以下の2行を追加するだけで、全プロジェクト横断で利用できます（VS Code の Settings Sync を使えばプライベートPCと会社PCで設定も自動同期されます）。
 
 ```json
