@@ -14,7 +14,10 @@ usage() {
 Usage: $(basename "$0") [COMMAND]
 
 Commands:
-  --global                 Link rules, agents, and skills globally (~/.gemini, ~/.claude, ~/.copilot)
+  --global                 Link agents and skills globally (~/.gemini, ~/.claude, ~/.copilot)
+                           * Safe by default: does NOT inject always-on global rules into ~/.claude/rules
+                             so your everyday coding tasks are never interrupted.
+  --global-with-rules      Link agents, skills, AND always-on rules globally
   --project <target-dir>   Link rules, agents, and skills into a specific project directory
   --self                   Link into this repository itself (.agents, .claude, .github) for local use
   --status                 Show current agents, skills, and active global symlink status
@@ -42,7 +45,7 @@ safe_symlink() {
     fi
     rm "$dst"
   elif [ -e "$dst" ]; then
-    log_skip "Exists and is not a symlink (skipped to protect file): $dst"
+    log_skip "Exists and is not a symlink (skipped to protect existing file): $dst"
     return 0
   fi
 
@@ -112,22 +115,26 @@ collect_rules() {
 }
 
 install_global() {
+  local include_rules="${1:-false}"
   log_info "Setting up GLOBAL links from: $REPO_ROOT"
 
   # 1. Antigravity Global Plugin
   safe_symlink "$REPO_ROOT" "$HOME/.gemini/config/plugins/$PLUGIN_NAME"
 
-  # 2. Claude Code Global (~/.claude/{rules,agents,skills})
-  mkdir -p "$HOME/.claude/rules" "$HOME/.claude/agents" "$HOME/.claude/skills"
-  if [ -f "$REPO_ROOT/rules/AGENTS.md" ]; then
-    safe_symlink "$REPO_ROOT/rules/AGENTS.md" "$HOME/.claude/rules/${PLUGIN_NAME}-agents.md"
+  # 2. Claude Code Global (~/.claude/{agents,skills})
+  mkdir -p "$HOME/.claude/agents" "$HOME/.claude/skills"
+  if [ "$include_rules" = "true" ]; then
+    mkdir -p "$HOME/.claude/rules"
+    if [ -f "$REPO_ROOT/rules/AGENTS.md" ]; then
+      safe_symlink "$REPO_ROOT/rules/AGENTS.md" "$HOME/.claude/rules/${PLUGIN_NAME}-agents.md"
+    fi
+    for rfile in $(collect_rules); do
+      local rbase
+      rbase="$(basename "$rfile")"
+      [ "$rbase" = "AGENTS.md" ] && continue
+      safe_symlink "$rfile" "$HOME/.claude/rules/${PLUGIN_NAME}-${rbase}"
+    done
   fi
-  for rfile in $(collect_rules); do
-    local rbase
-    rbase="$(basename "$rfile")"
-    [ "$rbase" = "AGENTS.md" ] && continue
-    safe_symlink "$rfile" "$HOME/.claude/rules/${PLUGIN_NAME}-${rbase}"
-  done
 
   # 3. GitHub Copilot Global (~/.copilot/{agents,skills})
   mkdir -p "$HOME/.copilot/agents" "$HOME/.copilot/skills"
@@ -260,14 +267,17 @@ show_status() {
   if [ -L "$HOME/.claude/rules/${PLUGIN_NAME}-agents.md" ]; then
     echo "  - Claude Global Rule : LINKED ($HOME/.claude/rules/${PLUGIN_NAME}-agents.md)"
   else
-    echo "  - Claude Global Rule : not linked"
+    echo "  - Claude Global Rule : not linked (On-Demand mode)"
   fi
   echo "=================================================================="
 }
 
 case "${1:-}" in
   --global)
-    install_global
+    install_global "false"
+    ;;
+  --global-with-rules)
+    install_global "true"
     ;;
   --project)
     [ -n "${2:-}" ] || { echo "Error: --project requires a target directory path" >&2; exit 1; }
