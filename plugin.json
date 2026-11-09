@@ -1,0 +1,6 @@
+{
+  "name": "agent-marketing-waza",
+  "displayName": "Agent Marketing Waza",
+  "description": "Portable multi-agent orchestration, subagents, and skills hub for Antigravity, GitHub Copilot, and Claude Code.",
+  "version": "0.1.0"
+}
